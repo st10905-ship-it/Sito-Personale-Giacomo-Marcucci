@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="it">
+<!-- Pagina HTML sui miei progetti scolastici -->
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>I miei progetti — Giacomo Marcucci</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ─── STILI SPECIFICI PAGINA PROGETTI ─── */
+
+    /* CARD PROGETTO: layout con immagine e testo affiancati */
+    .project-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 2.5rem;
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      animation: fadeUp 0.5s ease both;
+    }
+    .project-card:nth-child(2) { animation-delay: 0.08s; }
+    .project-card:nth-child(3) { animation-delay: 0.16s; }
+    .project-card:nth-child(4) { animation-delay: 0.24s; }
+
+    /* INTESTAZIONE CARD: fascia colorata con anno e titolo */
+    .project-header {
+      background: var(--navy);
+      padding: 1.4rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-header::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        90deg, transparent, transparent 39px,
+        rgba(255,255,255,0.02) 40px
+      );
+      pointer-events: none;
+    }
+    .project-year-badge {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: var(--gold);
+      color: var(--ink);
+      padding: 0.3em 0.8em;
+      border-radius: 2px;
+      font-weight: 500;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .project-header h2 {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin: 0;
+    }
+    .project-header h2 em {
+      font-style: italic;
+      color: #9bbdd6;
+    }
+
+    /* CORPO CARD: immagine + contenuto testo */
+    .project-body {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+    }
+
+    /* IMMAGINE PREVIEW DEL PROGETTO */
+    .project-img {
+      width: 100%;
+      height: 100%;
+      min-height: 200px;
+      object-fit: cover;
+      display: block;
+      border-right: 1px solid var(--border);
+    }
+
+    /* CONTENUTO TESTUALE */
+    .project-content {
+      padding: 1.75rem 2rem;
+    }
+    .project-subtitle {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .project-subtitle::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .project-desc {
+      font-size: 0.97rem;
+      color: #2a2520;
+      line-height: 1.75;
+      margin-bottom: 1.2rem;
+    }
+
+    /* TAG TECNOLOGIE */
+    .tech-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1rem;
+    }
+    .tech-badge {
+      font-family: var(--font-mono);
+      font-size: 0.63rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.28em 0.7em;
+      border: 1px solid var(--navy);
+      color: var(--navy);
+      background: transparent;
+      border-radius: 2px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .tech-badge.highlight {
+      background: var(--navy);
+      color: rgba(255,255,255,0.85);
+    }
+
+    /* FEATURE LIST dentro il progetto */
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 0.75rem 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+    .feature-list li {
+      font-size: 0.93rem;
+      color: #2a2520;
+      padding-left: 1.4rem;
+      position: relative;
+      line-height: 1.55;
+    }
+    .feature-list li::before {
+      content: '→';
+      position: absolute; left: 0;
+      color: var(--navy);
+      font-size: 0.82rem;
+      top: 0.12em;
+    }
+    .feature-list strong { color: var(--ink); font-weight: 600; }
+
+    /* RESPONSIVE */
+    @media (max-width: 680px) {
+      .project-body {
+        grid-template-columns: 1fr;
+      }
+      .project-img {
+        min-height: 180px;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .project-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BARRA DI NAVIGAZIONE -->
+  <nav class="topbar">
+    <a class="topbar-brand" href="index.html">Giacomo Marcucci</a>
+    <a class="topbar-back" href="index.html">Torna alla home</a>
+  </nav>
+
+  <!-- INTESTAZIONE PAGINA -->
+  <header class="page-header">
+    <div class="page-header-inner">
+      <span class="page-header-icon">🛠️</span>
+      <h1>I miei <em>progetti</em></h1>
+      <p class="page-header-sub">Tre anni di sviluppo — dalla scimmia sparatutto all'evento scolastico in PHP</p>
+      <div class="page-header-bar"></div>
+    </div>
+    <div class="page-header-bg" aria-hidden="true">DEV</div>
+  </header>
+
+  <main class="page-content">
+
+    <!-- INTRO -->
+    <div class="card intro" style="margin-bottom:2.5rem;">
+      <div class="card-label">Panoramica</div>
+      <p>Durante il triennio ho lavorato a tre progetti principali, uno per anno, ognuno con tecnologie e obiettivi diversi. Ogni progetto è stato realizzato in gruppo e valutato dai docenti.</p>
+    </div>
+
+    <!-- ── PROGETTO 1 — 3° ANNO ── -->
+    <div class="project-card">
+      <div class="project-header">
+        <span class="project-year-badge">3° Anno</span>
+        <h2>Monkey Slug — <em>Gioco dell'anno</em></h2>
+      </div>
+      <div class="project-body">
+        <img class="project-img" src="monkey_slug.png" alt="Screenshot menu principale di Monkey Slug"/>
+        <div class="project-content">
+          <div class="project-subtitle">🎮 Sparatutto 2D · C# Windows Forms</div>
+          <p class="project-desc">
+            <strong>Monkey Slug</strong> è uno sparatutto PvE 2D ispirato a <em>Metal Slug</em>, sviluppato interamente dal gruppo come progetto di fine anno.
+            Il protagonista è una scimmia armata che affronta nemici in tre livelli progressivamente più difficili.
+          </p>
+          <ul class="feature-list">
+            <li><strong>3 livelli</strong> con difficoltà crescente al superamento di ciascuno</li>
+            <li><strong>3 vite</strong> a disposizione per completare la campagna</li>
+            <li>Personaggio principale: <strong>una scimmia che spara</strong></li>
+            <li>Grafica pixel-art realizzata interamente dal gruppo</li>
+            <li>Gameplay di tipo <strong>spara-tutto</strong> (shoot 'em up)</li>
+          </ul>
+          <div class="tech-list">
+            <span class="tech-badge highlight">C#</span>
+            <span class="tech-badge highlight">Windows Forms</span>
+            <span class="tech-badge">2D Game Dev</span>
+            <span class="tech-badge">Pixel Art</span>
+            <span class="tech-badge">OOP</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PROGETTO 2 — 4° ANNO ── -->
+    <div class="project-card">
+      <div class="project-header">
+        <span class="project-year-badge">4° Anno</span>
+        <h2>Gestionale <em>Sneakers</em></h2>
+      </div>
+      <div class="project-body">
+        <img class="project-img" src="gestionale_sneakers.png" alt="Screenshot dell'interfaccia gestionale sneakers"/>
+        <div class="project-content">
+          <div class="project-subtitle">👟 Applicazione Desktop · C# · Database</div>
+          <p class="project-desc">
+            Applicazione desktop per la gestione di un negozio di scarpe, con database collegato.
+            Sviluppata con un compagno, permette di amministrare il catalogo prodotti in modo completo tramite un'interfaccia grafica.
+          </p>
+          <ul class="feature-list">
+            <li><strong>Inserimento</strong> di nuove sneakers con tutti i dati (nome, marca, modello, colore, taglia, prezzo, quantità)</li>
+            <li><strong>Eliminazione</strong> di articoli dal catalogo</li>
+            <li><strong>Visualizzazione</strong> con tabella interattiva e filtri avanzati</li>
+            <li>Filtri per <strong>marca</strong>, taglia, prezzo e altri attributi</li>
+            <li>Sezione di <strong>modifica</strong> rapida selezionando una riga dalla tabella</li>
+            <li>Interfaccia cliente separata per la consultazione</li>
+          </ul>
+          <div class="tech-list">
+            <span class="tech-badge highlight">C#</span>
+            <span class="tech-badge highlight">Windows Forms</span>
+            <span class="tech-badge highlight">Database</span>
+            <span class="tech-badge">SQL</span>
+            <span class="tech-badge">CRUD</span>
+            <span class="tech-badge">Desktop App</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PROGETTO 3 — 5° ANNO ── -->
+    <div class="project-card">
+      <div class="project-header">
+        <span class="project-year-badge">5° Anno</span>
+        <h2>Svelati — <em>Pagina eventi</em></h2>
+      </div>
+      <div class="project-body">
+        <img class="project-img" src="svelati_eventi.png" alt="Screenshot della pagina eventi del progetto Svelati"/>
+        <div class="project-content">
+          <div class="project-subtitle">🌐 Progetto inter-classe · Web · Frontend</div>
+          <p class="project-desc">
+            Progetto in collaborazione con altre classi dell'istituto.
+            Il mio gruppo ha curato il <strong>frontend della sezione eventi</strong>: una pagina web che mostra tutti gli open day e gli eventi scolastici di una scuola italiana, con filtri e mappa interattiva.
+          </p>
+          <ul class="feature-list">
+            <li>Visualizzazione di tutti gli <strong>eventi scolastici</strong> (open day, ecc.) con card informative</li>
+            <li>Badge <strong>"Prenotabile" / "Non prenotabile"</strong> in tempo reale</li>
+            <li>Data e orario per ciascun evento</li>
+            <li>Filtro per <strong>raggio geografico</strong> tramite slider e mappa integrata</li>
+            <li>Barra di <strong>ricerca</strong> eventi per nome</li>
+            <li>Navigazione multi-sezione (Progetti, Ambiti, Orientati, Area Docenti, Area Studenti)</li>
+          </ul>
+          <div class="tech-list">
+            <span class="tech-badge highlight">HTML</span>
+            <span class="tech-badge highlight">CSS</span>
+            <span class="tech-badge highlight">JavaScript</span>
+            <span class="tech-badge highlight">PHP</span>
+            <span class="tech-badge">Frontend</span>
+            <span class="tech-badge">Progetto inter-classe</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a class="back-link" href="index.html">Torna alla pagina principale</a>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-name">Giacomo Marcucci</span>
+      <span class="footer-year">© 2025 · ITIS Marconi Pieralisi</span>
+    </div>
+  </footer>
+
+</body>
+</html>
